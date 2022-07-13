@@ -46,14 +46,13 @@ function App() {
   //This two functions use the memo hook to filter the results on a search
   const handleSearch = (e) => {
     setSearchValue(e.target.value)
-    setFlag(!flag)
   }
   const todoList = useMemo(() => {
     return todos
       .filter(todo =>
         todo.name.toLowerCase()
           .includes(searchValue.toLowerCase()))
-  }, [todos])
+  }, [searchValue, todos])
 
   return (
     <>
