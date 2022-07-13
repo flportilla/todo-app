@@ -5,14 +5,14 @@
   border-bottom: 1px solid black;
 }
 
-.todo_list>form {
+.todo_list .form {
   display: flex;
   justify-content: space-between;
   margin: 10px 0;
 
 }
 
-.todo_list>form>input {
+.todo_list .form>input {
   flex: 1;
   margin-right: 10px;
 }
