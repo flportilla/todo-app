@@ -26,6 +26,12 @@ todoRouter.get('/:id', async (request, response) => {
   response.json(todoById)
 })
 
+//Handle PUT requests
+todoRouter.put('/:id', async (request, response) => {
+  const updatedTodo = await Todo.findByIdAndUpdate(request.params.id, request.body, { new: true })
+  response.json(updatedTodo)
+})
+
 // DELETE a blog by id
 todoRouter.delete('/:id', async (request, response) => {
   const deletedTodo = await Todo.findByIdAndRemove(request.params.id)
