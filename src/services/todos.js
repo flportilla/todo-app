@@ -18,7 +18,8 @@ const removeTodo = async (id) => {
 }
 
 const markAsComplete = async (id, todoObj) => {
-  return await axios.put(`${baseUrl}/${id}`, todoObj)
+  const response = await axios.put(`${baseUrl}/${id}`, todoObj)
+  return response
 }
 
 export default { getTodos, addTodo, removeTodo, markAsComplete }
