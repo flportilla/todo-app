@@ -16,4 +16,4 @@ todoSchema.set('toJSON', {
   }
 })
 
-module.exports = mongoose.model('ToDo', todoSchema)
+module.exports = mongoose.model('Todo', todoSchema)
