@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import CompletedTask from './components/CompletedTask';
 import Header from './components/Header';
-
+import TodoList from './components/TodoList'
 
 function App() {
   const [searchValue, setSearchValue] = useState('')
@@ -82,6 +82,12 @@ function App() {
     <>
       <Header
         handleSearch={handleSearch}
+      />
+      <TodoList
+        toDos={todos}
+        isCompleted={isCompleted}
+        deleteTodo={deleteTodo}
+        todoList={todoList}
       />
       <CompletedTask
         toDos={todos}
