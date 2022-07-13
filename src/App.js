@@ -12,17 +12,13 @@ function App() {
     todoServices
       .getTodos()
       .then(todos => setTodos(todos))
-  }, [todos])
-
+  })
 
   //Check if the todos are marked as completed or not and change the list acordingly
-  const completeTodo = (id) => {
-
-    // const selectedTodo = todos.find(todo => todo.id === Number(id))
-
-    // const changedTodo = { ...selectedTodo, isComplete: !selectedTodo?.isComplete }
-    // setTodos(todos.map(todo => todo.id !== id ? todo : changedTodo))
-
+  const completeTodo = async (id) => {
+    const selectedTodo = todos.find(todo => todo.id === id)
+    const changedTodo = { ...selectedTodo, isComplete: !selectedTodo.isComplete }
+    await todoServices.markAsComplete(id, changedTodo)
   }
 
   //Handle the delete of todos on click
