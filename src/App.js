@@ -7,24 +7,26 @@ import todoServices from './services/todos'
 function App() {
   const [searchValue, setSearchValue] = useState('')
   const [todos, setTodos] = useState([])
+  const [flag, setFlag] = useState(false)
 
   useEffect(() => {
     todoServices
       .getTodos()
       .then(todos => setTodos(todos))
-  })
-
+  }, [flag])
   //Check if the todos are marked as completed or not and change the list acordingly
   const completeTodo = async (id) => {
     const selectedTodo = todos.find(todo => todo.id === id)
     const changedTodo = { ...selectedTodo, isComplete: !selectedTodo.isComplete }
     await todoServices.markAsComplete(id, changedTodo)
-  }
 
+    setFlag(!flag)
+  }
   //Handle the delete of todos on click
   const deleteTodo = async (id) => {
     await todoServices
       .removeTodo(id)
+    setFlag(!flag)
   }
   //Handle the creation of new todos and adds them to the list
   const createTodo = async (e) => {
@@ -39,10 +41,12 @@ function App() {
 
     await todoServices.addTodo(newTodoObj)
     input.value = ''
+    setFlag(!flag)
   }
   //This two functions use the memo hook to filter the results on a search
   const handleSearch = (e) => {
     setSearchValue(e.target.value)
+    setFlag(!flag)
   }
   const todoList = useMemo(() => {
     return todos

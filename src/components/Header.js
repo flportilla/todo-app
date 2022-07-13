@@ -7,7 +7,7 @@ const Header = ({ handleSearch }) => {
 
   return (
     <div className='header_container'>
-      <a href='http://localhost:3000/'>Home</a>
+      <a href='http://localhost:3005/'>Home</a>
       <form>
         <label htmlFor='searchBar'>
           Search
