@@ -1,7 +1,7 @@
 import React from 'react'
 import '../style/completedTasks.css'
 
-const CompletedTask = ({ toDos, isCompleted, deleteTodo }) => {
+const CompletedTask = ({ toDos, completeTodo, deleteTodo }) => {
 
   const completedTodos = toDos.filter(todo => todo.isComplete)
 
@@ -20,7 +20,7 @@ const CompletedTask = ({ toDos, isCompleted, deleteTodo }) => {
                     <label htmlFor={todo.id}>
                       <input
                         type='checkbox'
-                        onChange={() => isCompleted(todo.id)}
+                        onChange={() => completeTodo(todo.id)}
                         checked={todo.isComplete}
                         id={todo.id}
                       />

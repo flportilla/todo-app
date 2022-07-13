@@ -54,19 +54,30 @@ function App() {
   ])
 
   //Check if the todos are marked as completed or not and change the list acordingly
-  const isCompleted = (id) => {
+  const completeTodo = (id) => {
     const selectedTodo = todos.find(todo => todo.id === Number(id))
     const changedTodo = { ...selectedTodo, isComplete: !selectedTodo?.isComplete }
-
     setTodos(todos.map(todo => todo.id !== id ? todo : changedTodo))
 
   }
-
   //Handle the delete of todos on click
   const deleteTodo = (id) => {
     setTodos(todos.filter(todo => todo.id !== Number(id)))
   }
+  //Handle the creation of new todos and adds them to the list
+  const createTodo = (e) => {
+    const input = e.target.parentElement.firstChild
+    const newTodoValue = input.value
 
+    const newTodoObj = {
+      id: Date.now(),
+      name: newTodoValue,
+      isComplete: false
+    }
+
+    setTodos(todos.concat(newTodoObj))
+    input.value = ''
+  }
   //This two functions use the memo hook to filter the results on a search
   const handleSearch = (e) => {
     setSearchValue(e.target.value)
@@ -85,13 +96,14 @@ function App() {
       />
       <TodoList
         toDos={todos}
-        isCompleted={isCompleted}
+        completeTodo={completeTodo}
         deleteTodo={deleteTodo}
+        createTodo={createTodo}
         todoList={todoList}
       />
       <CompletedTask
         toDos={todos}
-        isCompleted={isCompleted}
+        completeTodo={completeTodo}
         deleteTodo={deleteTodo}
       />
     </>
