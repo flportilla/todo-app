@@ -1,0 +1,19 @@
+.completed_tasks {
+  display: flex;
+  flex-direction: column;
+  margin: 0 20px;
+  border-bottom: 1px solid black;
+}
+
+ul {
+  list-style: none;
+  margin: 5px 5px;
+}
+
+ul>li {
+  list-style: none;
+}
+
+.empty_completed {
+  align-self: center;
+}
