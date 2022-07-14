@@ -65,9 +65,10 @@ function App() {
     setTodos(todos.filter(todo => todo.id !== Number(id)))
   }
   //Handle the creation of new todos and adds them to the list
-  const createTodo = (e) => {
-    const input = e.target.parentElement.firstChild
-    const newTodoValue = input.value
+  const createTodo = async (e) => {
+    e.preventDefault()
+    const form = document.forms['form'];
+    const newTodoValue = form.firstChild.value
 
     const newTodoObj = {
       id: Date.now(),
@@ -75,8 +76,8 @@ function App() {
       isComplete: false
     }
 
-    setTodos(todos.concat(newTodoObj))
-    input.value = ''
+    await todoServices.addTodo(newTodoObj)
+    setFlag(!flag)
   }
   //This two functions use the memo hook to filter the results on a search
   const handleSearch = (e) => {
