@@ -19,6 +19,8 @@ function App() {
     const selectedTodo = todos.find(todo => todo.id === id)
     const changedTodo = { ...selectedTodo, isComplete: !selectedTodo.isComplete }
     await todoServices.markAsComplete(id, changedTodo)
+  }
+
 
     setFlag(!flag)
   }
