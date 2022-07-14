@@ -1,8 +1,0 @@
-POST http://localhost:3005/api/todos HTTP/1.1
-Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZscG9ydGlsbGFUb2RvIiwiaWQiOiI2MmNmNTRlZjhlN2Q1ZmI2NWIxYzEzNjgiLCJpYXQiOjE2NTc4MTQyMDd9.kMAJWj6OaUvWQa-YGKDfbbPav-iOvrWETogDXjofoAI
-
-{
-   "name": "New Todo 2",
-   "isComplete": false
-}
