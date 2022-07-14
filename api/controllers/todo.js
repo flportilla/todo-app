@@ -30,7 +30,6 @@ todoRouter.post('/', tokenExtractor, userExtractor, async (request, response) =>
 
   user.todos = user.todos.concat(savedTodo.id)
   await user.save()
-  console.log(user.todos)
 
   response.status(201).json(savedTodo)
 
@@ -51,8 +50,23 @@ todoRouter.put('/:id', tokenExtractor, userExtractor, async (request, response) 
 
 // DELETE a todo by id
 todoRouter.delete('/:id', tokenExtractor, userExtractor, async (request, response) => {
-  const deletedTodo = await Todo.findByIdAndRemove(request.params.id)
-  response.status(204).end()
+
+  const selectedTodo = await Todo.findById(request.params.id)
+  const user = request.user
+
+  const todoInUser = user?.todos.filter(todo => todo.toString() === selectedTodo?.id)
+
+  console.log(user.todos)
+
+  if (todoInUser?.toString() === selectedTodo?.id) {
+    await Todo.findByIdAndRemove(request.params.id)
+
+    user.todos = user.todos.filter(todo => todo.toString() !== selectedTodo?.id)
+    await user.save()
+    response.status(204).end()
+  }
+
+  response.status(401).end()
 })
 
 module.exports = todoRouter
