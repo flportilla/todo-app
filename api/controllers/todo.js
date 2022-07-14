@@ -1,15 +1,21 @@
 const todoRouter = require('express').Router()
 const Todo = require('../models/todos')
-const TOKEN = require('../utils/config')
+const jwt = require('jsonwebtoken')
+
+const middleware = require('../middleware/middleware')
+const userExtractor = middleware.userExtractor
+const tokenExtractor = middleware.tokenExtractor
 
 //Handle GET all the todos
-todoRouter.get('/', async (request, response, next) => {
+todoRouter.get('/', tokenExtractor, userExtractor, async (request, response, next) => {
   const allToDos = await Todo.find({})
   response.json(allToDos)
+  next()
 })
 
 //Handle POST new todos
-todoRouter.post('/', async (request, response, next) => {
+todoRouter.post('/', tokenExtractor, userExtractor, async (request, response) => {
+
   const { name } = request.body
   const todo = new Todo({
     name: name,
@@ -18,23 +24,24 @@ todoRouter.post('/', async (request, response, next) => {
   })
   const savedTodo = await todo.save()
   response.status(201).json(savedTodo)
+
 })
 
 //Handle GET request by id
-todoRouter.get('/:id', async (request, response) => {
+todoRouter.get('/:id', tokenExtractor, userExtractor, async (request, response) => {
   const todoId = request.params.id
   const todoById = await Todo.findById(todoId)
   response.json(todoById)
 })
 
 //Handle PUT requests
-todoRouter.put('/:id', async (request, response) => {
+todoRouter.put('/:id', tokenExtractor, userExtractor, async (request, response) => {
   const updatedTodo = await Todo.findByIdAndUpdate(request.params.id, request.body, { new: true })
   response.json(updatedTodo)
 })
 
-// DELETE a blog by id
-todoRouter.delete('/:id', async (request, response) => {
+// DELETE a todo by id
+todoRouter.delete('/:id', tokenExtractor, userExtractor, async (request, response) => {
   const deletedTodo = await Todo.findByIdAndRemove(request.params.id)
   response.status(204).end()
 })
