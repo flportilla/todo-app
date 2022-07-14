@@ -17,12 +17,21 @@ todoRouter.get('/', tokenExtractor, userExtractor, async (request, response, nex
 todoRouter.post('/', tokenExtractor, userExtractor, async (request, response) => {
 
   const { name } = request.body
+  const user = request.user
+
   const todo = new Todo({
     name: name,
     isComplete: false,
     date: new Date(),
+    user: user.id
   })
+
   const savedTodo = await todo.save()
+
+  user.todos = user.todos.concat(savedTodo.id)
+  await user.save()
+  console.log(user.todos)
+
   response.status(201).json(savedTodo)
 
 })
