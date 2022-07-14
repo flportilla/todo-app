@@ -2,7 +2,7 @@ import React from 'react'
 import '../style/completedTasks.css'
 import List from './List'
 
-const CompletedTask = ({ toDos, completeTodo, deleteTodo }) => {
+const CompletedTask = ({ toDos, isCompleted, deleteTodo }) => {
 
   const completedTodos = toDos.filter(todo => todo.isComplete)
 
@@ -20,7 +20,7 @@ const CompletedTask = ({ toDos, completeTodo, deleteTodo }) => {
                   <List
                     id={todo.id}
                     todo={todo}
-                    completeTodo={completeTodo}
+                    isCompleted={isCompleted}
                     deleteTodo={deleteTodo}
                   />
                 )

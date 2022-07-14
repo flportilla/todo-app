@@ -2,9 +2,10 @@ import React from 'react'
 import '../style/todoList.css'
 import List from './List'
 
-const ListItem = ({ toDos, completeTodo, deleteTodo, todoList, createTodo }) => {
+const ListItem = ({ toDos, isCompleted, deleteTodo, todoList, createTodo }) => {
 
   const pendingTodos = todoList.filter(todo => !todo.isComplete)
+
   return (
     <div className="todo_list">
       <div className='form'>
@@ -29,7 +30,7 @@ const ListItem = ({ toDos, completeTodo, deleteTodo, todoList, createTodo }) => 
                       <List
                         id={todo.id}
                         todo={todo}
-                        completeTodo={completeTodo}
+                        isCompleted={isCompleted}
                         deleteTodo={deleteTodo}
                       />
                     )

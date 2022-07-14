@@ -1,13 +1,13 @@
 import React from 'react'
 
-const List = ({ todo, completeTodo, deleteTodo, id }) => {
+const List = ({ todo, isCompleted, deleteTodo, id }) => {
   return (
     <li key={id}>
       <label htmlFor={id}>
         <input
           id={id}
           type='checkbox'
-          onChange={() => completeTodo(id)}
+          onChange={() => isCompleted(id)}
           checked={todo.isComplete}
         />
         {todo.name}
