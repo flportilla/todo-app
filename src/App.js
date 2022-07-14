@@ -54,10 +54,12 @@ function App() {
   ])
 
   //Check if the todos are marked as completed or not and change the list acordingly
+  
   const completeTodo = (id) => {
     const selectedTodo = todos.find(todo => todo.id === Number(id))
     const changedTodo = { ...selectedTodo, isComplete: !selectedTodo?.isComplete }
     setTodos(todos.map(todo => todo.id !== id ? todo : changedTodo))
+
 
   }
   //Handle the delete of todos on click
