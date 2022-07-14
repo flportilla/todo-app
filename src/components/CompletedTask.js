@@ -1,5 +1,6 @@
 import React from 'react'
 import '../style/completedTasks.css'
+import List from './List'
 
 const CompletedTask = ({ toDos, completeTodo, deleteTodo }) => {
 
@@ -16,23 +17,12 @@ const CompletedTask = ({ toDos, completeTodo, deleteTodo }) => {
             : < ul >{
               completedTodos.map(todo => {
                 return (
-                  <li key={todo.id}>
-                    <label htmlFor={todo.id}>
-                      <input
-                        type='checkbox'
-                        onChange={() => completeTodo(todo.id)}
-                        checked={todo.isComplete}
-                        id={todo.id}
-                      />
-                      {todo.name}
-                    </label>
-                    <button
-                      type='button'
-                      onClick={() => deleteTodo(todo.id)}
-                    >
-                      delete
-                    </button>
-                  </li>
+                  <List
+                    id={todo.id}
+                    todo={todo}
+                    completeTodo={completeTodo}
+                    deleteTodo={deleteTodo}
+                  />
                 )
               })
             }

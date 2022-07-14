@@ -1,5 +1,6 @@
 import React from 'react'
 import '../style/todoList.css'
+import List from './List'
 
 const ListItem = ({ toDos, completeTodo, deleteTodo, todoList, createTodo }) => {
 
@@ -11,7 +12,9 @@ const ListItem = ({ toDos, completeTodo, deleteTodo, todoList, createTodo }) => 
         <button
           type='button'
           onClick={createTodo}
-        >Add</button>
+        >
+          Add
+        </button>
       </div>
       {
         toDos.length === 0
@@ -23,22 +26,12 @@ const ListItem = ({ toDos, completeTodo, deleteTodo, todoList, createTodo }) => 
                 {
                   pendingTodos.map(todo => {
                     return (
-                      <li key={todo.id}>
-                        <label htmlFor={todo.id}>
-                          <input
-                            id={todo.id}
-                            type='checkbox'
-                            onChange={() => completeTodo(todo.id)}
-                          />
-                          {todo.name}
-                        </label>
-                        <button
-                          type='button'
-                          onClick={() => deleteTodo(todo.id)}
-                        >
-                          delete
-                        </button>
-                      </li>
+                      <List
+                        id={todo.id}
+                        todo={todo}
+                        completeTodo={completeTodo}
+                        deleteTodo={deleteTodo}
+                      />
                     )
                   })
                 }

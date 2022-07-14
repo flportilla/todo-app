@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import CompletedTask from './components/CompletedTask';
 import Header from './components/Header';
-import TodoList from './components/TodoList'
+import PendingTasks from './components/PendingTasks'
 import todoServices from './services/todos'
 
 function App() {
@@ -59,7 +59,7 @@ function App() {
       <Header
         handleSearch={handleSearch}
       />
-      <TodoList
+      <PendingTasks
         toDos={todos}
         completeTodo={completeTodo}
         deleteTodo={deleteTodo}
