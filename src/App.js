@@ -59,6 +59,7 @@ function App() {
     const changedTodo = { ...selectedTodo, isComplete: !selectedTodo?.isComplete }
     setTodos(todos.map(todo => todo.id !== id ? todo : changedTodo))
 
+
   }
   //Handle the delete of todos on click
   const deleteTodo = (id) => {
