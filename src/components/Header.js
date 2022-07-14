@@ -18,7 +18,7 @@ const Header = ({ handleSearch }) => {
           />
         </label>
         <button
-          type='button'
+          type='reset'
           onClick={clearSearch}
         >
           Clear
