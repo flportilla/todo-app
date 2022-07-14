@@ -1,15 +1,18 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import '../style/todoList.css'
 
-const ListItem = ({ toDos, isCompleted, deleteTodo, todoList }) => {
+const ListItem = ({ toDos, completeTodo, deleteTodo, todoList, createTodo }) => {
 
   const pendingTodos = todoList.filter(todo => !todo.isComplete)
   return (
     <div className="todo_list">
-      <form>
+      <div className='form'>
         <input type='text' />
-        <button type='submit'>Add</button>
-      </form>
+        <button
+          type='button'
+          onClick={createTodo}
+        >Add</button>
+      </div>
       {
         toDos.length === 0
           ? ''
@@ -25,7 +28,7 @@ const ListItem = ({ toDos, isCompleted, deleteTodo, todoList }) => {
                           <input
                             id={todo.id}
                             type='checkbox'
-                            onChange={() => isCompleted(todo.id)}
+                            onChange={() => completeTodo(todo.id)}
                           />
                           {todo.name}
                         </label>
