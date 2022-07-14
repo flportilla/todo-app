@@ -60,8 +60,6 @@ todoRouter.delete('/:id', tokenExtractor, userExtractor, async (request, respons
 
   const todoInUser = user?.todos.filter(todo => todo.toString() === selectedTodo?.id)
 
-  console.log(user.todos)
-
   if (todoInUser?.toString() === selectedTodo?.id) {
     await Todo.findByIdAndRemove(request.params.id)
 
