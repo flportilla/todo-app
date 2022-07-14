@@ -1,0 +1,30 @@
+html {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: 'Courier New', Courier, monospace;
+  letter-spacing: 1px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  padding: inherit;
+  margin: inherit;
+  font-family: inherit;
+  letter-spacing: inherit;
+}
+
+.header_container {
+  display: flex;
+  justify-content: space-between;
+  height: 80px;
+  align-items: center;
+  margin: 0 20px;
+}
+
+.header_container>form>label>input {
+  min-width: 300px;
+  margin-right: 0;
+}

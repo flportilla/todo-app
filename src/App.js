@@ -1,9 +1,20 @@
-import React from 'react';
-import './App.css';
+import React, { useState } from 'react';
+import Header from './components/Header';
+
 
 function App() {
+  const [searchValue, setSearchValue] = useState('')
+
+  const handleSearch = (e) => {
+    setSearchValue(e.target.value)
+  }
   return (
-    <h1>Hello World</h1>
+    <>
+      <Header
+        handleSearch={handleSearch}
+      />
+
+    </>
   );
 }
 
