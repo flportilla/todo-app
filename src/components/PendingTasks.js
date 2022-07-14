@@ -8,15 +8,22 @@ const ListItem = ({ toDos, isCompleted, deleteTodo, todoList, createTodo }) => {
 
   return (
     <div className="todo_list">
-      <div className='form'>
-        <input type='text' />
+      <form
+        className='form'
+        name='form'
+        onSubmit={createTodo}
+      >
+        <input
+          type='text'
+          id='value'
+        />
         <button
           type='button'
           onClick={createTodo}
         >
           Add
         </button>
-      </div>
+      </form>
       {
         toDos.length === 0
           ? ''
@@ -28,6 +35,7 @@ const ListItem = ({ toDos, isCompleted, deleteTodo, todoList, createTodo }) => {
                   pendingTodos.map(todo => {
                     return (
                       <List
+                        key={todo.id}
                         id={todo.id}
                         todo={todo}
                         isCompleted={isCompleted}
