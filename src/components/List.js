@@ -2,7 +2,7 @@ import React from 'react'
 
 const List = ({ todo, isCompleted, deleteTodo, id }) => {
   return (
-    <li key={id}>
+    <li>
       <label htmlFor={id}>
         <input
           id={id}

@@ -1,5 +1,6 @@
 const todoRouter = require('express').Router()
 const Todo = require('../models/todos')
+const TOKEN = require('../utils/config')
 
 //Handle GET all the todos
 todoRouter.get('/', async (request, response, next) => {
