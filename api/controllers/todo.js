@@ -8,9 +8,13 @@ const tokenExtractor = middleware.tokenExtractor
 
 //Handle GET all the todos
 todoRouter.get('/', tokenExtractor, userExtractor, async (request, response, next) => {
-  const allToDos = await Todo.find({})
-  response.json(allToDos)
-  next()
+
+  const allTodos = await Todo.find({})
+  const user = request.user
+
+  const allTodosInUser = allTodos.filter(todo => user.id === todo.user?.toString())
+
+  response.json(allTodosInUser)
 })
 
 //Handle POST new todos
