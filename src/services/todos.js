@@ -1,24 +1,23 @@
 import axios from "axios";
 const baseUrl = 'http://localhost:3005/api/todos'
 
-let token = null
 
-const setToken = newToken => token = `bearer ${newToken}`
+
+const setToken = newToken => {
+  const token = `bearer ${newToken}`
+  axios.defaults.headers.common['Authorization'] = token
+}
+
 
 const getTodos = async () => {
-  const config = {
-    headers: { Authorization: token }
-  }
-  const response = await axios.get(baseUrl, config)
+
+  const response = await axios.get(baseUrl)
   return response.data
 }
 
 const addTodo = async (todoObj) => {
 
-  const config = {
-    headers: { Authorization: token }
-  }
-  const response = await axios.post(baseUrl, todoObj, config)
+  const response = await axios.post(baseUrl, todoObj)
   return response.data
 }
 
