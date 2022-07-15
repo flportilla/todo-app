@@ -7,14 +7,14 @@ const userExtractor = middleware.userExtractor
 const tokenExtractor = middleware.tokenExtractor
 
 //Handle GET all the todos
-todoRouter.get('/', tokenExtractor, userExtractor, async (request, response, next) => {
+todoRouter.get('/', async (request, response, next) => {
 
   const allTodos = await Todo.find({})
   const user = request.user
 
-  const allTodosInUser = allTodos.filter(todo => user.id === todo.user?.toString())
+  // const allTodosInUser = allTodos.filter(todo => user.id === todo.user?.toString())
 
-  response.json(allTodosInUser)
+  return response.json(allTodos)
 })
 
 //Handle POST new todos
@@ -35,7 +35,7 @@ todoRouter.post('/', tokenExtractor, userExtractor, async (request, response) =>
   user.todos = user.todos.concat(savedTodo.id)
   await user.save()
 
-  response.status(201).json(savedTodo)
+  return response.status(201).json(savedTodo)
 
 })
 
@@ -43,13 +43,13 @@ todoRouter.post('/', tokenExtractor, userExtractor, async (request, response) =>
 todoRouter.get('/:id', tokenExtractor, userExtractor, async (request, response) => {
   const todoId = request.params.id
   const todoById = await Todo.findById(todoId)
-  response.json(todoById)
+  return response.json(todoById)
 })
 
 //Handle PUT requests
 todoRouter.put('/:id', tokenExtractor, userExtractor, async (request, response) => {
   const updatedTodo = await Todo.findByIdAndUpdate(request.params.id, request.body, { new: true })
-  response.json(updatedTodo)
+  return response.json(updatedTodo)
 })
 
 // DELETE a todo by id
@@ -65,10 +65,9 @@ todoRouter.delete('/:id', tokenExtractor, userExtractor, async (request, respons
 
     user.todos = user.todos.filter(todo => todo.toString() !== selectedTodo?.id)
     await user.save()
-    response.status(204).end()
+    return response.status(204).end()
   }
-
-  response.status(401).end()
+  return response.status(401).end()
 })
 
 module.exports = todoRouter
