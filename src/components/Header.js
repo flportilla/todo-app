@@ -6,15 +6,18 @@ const Header = ({ handleSearch }) => {
   return (
     <>
       <a href='/'>Home</a>
-      <form>
+      <form
+        className='search_form'
+        onSubmit={(e) => e.preventDefault()}>
         <label htmlFor='searchBar'>
           Search
-          <input
-            id='searchBar'
-            type='text'
-            onChange={(e) => handleSearch(e)}
-          />
         </label>
+        <input
+          className='search_bar'
+          id='searchBar'
+          type='text'
+          onChange={(e) => handleSearch(e)}
+        />
       </form>
     </>
   )

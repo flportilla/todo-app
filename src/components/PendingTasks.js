@@ -9,7 +9,7 @@ const ListItem = ({ toDos, isCompleted, deleteTodo, todoList, createTodo }) => {
   return (
     <div className="todo_list">
       <form
-        className='form'
+        className='add_todo_form'
         name='form'
         onSubmit={createTodo}
       >
