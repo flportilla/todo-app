@@ -4,7 +4,7 @@ import '../style/header.css'
 const Header = ({ handleSearch }) => {
 
   return (
-    <div className='header_container'>
+    <>
       <a href='/'>Home</a>
       <form>
         <label htmlFor='searchBar'>
@@ -16,8 +16,7 @@ const Header = ({ handleSearch }) => {
           />
         </label>
       </form>
-      <div> """""login credentials""""" </div>
-    </div>
+    </>
   )
 }
 

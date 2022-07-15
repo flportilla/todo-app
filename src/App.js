@@ -1,8 +1,10 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import CompletedTask from './components/CompletedTask';
 import Header from './components/Header';
+import Login from './components/Login';
 import PendingTasks from './components/PendingTasks'
 import todoServices from './services/todos'
+import './style/header.css'
 
 function App() {
   const [searchValue, setSearchValue] = useState('')
@@ -60,9 +62,12 @@ function App() {
 
   return (
     <>
-      <Header
-        handleSearch={handleSearch}
-      />
+      <div className='header_container'>
+        <Header
+          handleSearch={handleSearch}
+        />
+        <Login />
+      </div>
       <PendingTasks
         toDos={todos}
         isCompleted={isCompleted}
