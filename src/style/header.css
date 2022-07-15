@@ -43,7 +43,7 @@ html {
 .header_container .login_form {
   min-width: 25%;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   gap: 5px;
   margin: 0;
 }
