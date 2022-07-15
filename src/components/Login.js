@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Login = () => {
+const Login = ({ handleLogin, username, password, setUsername, setPassword }) => {
 
 
   return (
@@ -10,19 +10,34 @@ const Login = () => {
       alignItems: "center",
       margin: "5px",
     }}>
-      <form className='login_form'>
-        <label htmlFor='user_name'>
+      <form
+        className='login_form'
+        onSubmit={handleLogin}
+      >
+        <label htmlFor='user_name'
+        >
           User
         </label>
+
         <input
+          value={username}
+          onChange={({ target }) => setUsername(target.value)}
           className='login_user'
-          type={'text'} />
-        <label htmlFor='user_name'>
+          type={'text'}
+        />
+
+        <label htmlFor='user_name'
+        >
           Password
         </label>
+
         <input
+          value={password}
+          onChange={({ target }) => setPassword(target.value)}
           className='login_password'
-          type={'password'} />
+          type={'password'}
+        />
+
         <button type='submit'>login</button>
       </form >
       <a href='/'>new user? click here</a>

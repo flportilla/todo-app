@@ -9,7 +9,10 @@ import './style/header.css'
 function App() {
   const [searchValue, setSearchValue] = useState('')
   const [todos, setTodos] = useState([])
+  const [newTodo, setNewtodo] = useState('')
   const [flag, setFlag] = useState(false)
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
 
   useEffect(() => {
     todoServices
@@ -26,22 +29,17 @@ function App() {
     await todoServices.markAsComplete(id, changedTodo)
     setFlag(!flag)
   }
-
   //Handle the delete of todos on click
   const deleteTodo = async (id) => {
     await todoServices
       .removeTodo(id)
     setFlag(!flag)
   }
-
   //Handle the creation of new todos and adds them to the list
   const createTodo = async (e) => {
     e.preventDefault()
-    const form = document.forms['form'];
-    const newTodoValue = form.firstChild.value
-
     const newTodoObj = {
-      name: newTodoValue,
+      name: newTodo,
       isComplete: false
     }
 
@@ -52,7 +50,6 @@ function App() {
   const handleSearch = (e) => {
     setSearchValue(e.target.value)
   }
-
   const todoList = useMemo(() => {
     return todos
       .filter(todo =>
@@ -60,19 +57,32 @@ function App() {
           .includes(searchValue.toLowerCase()))
   }, [searchValue, todos])
 
+
+  //Handle login
+  const handleLogin = (e) => {
+    console.log(username, password)
+  };
+
   return (
     <>
       <div className='header_container'>
         <Header
           handleSearch={handleSearch}
         />
-        <Login />
+        <Login
+          username={username}
+          setUsername={setUsername}
+          password={password}
+          setPassword={setPassword}
+          handleLogin={handleLogin} />
       </div>
       <PendingTasks
+        createTodo={createTodo}
         toDos={todos}
         isCompleted={isCompleted}
         deleteTodo={deleteTodo}
-        createTodo={createTodo}
+        newTodo={newTodo}
+        setNewtodo={setNewtodo}
         todoList={todoList}
       />
       <CompletedTask
