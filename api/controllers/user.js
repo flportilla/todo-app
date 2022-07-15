@@ -8,12 +8,13 @@ usersRouter.get('/', async (request, response) => {
   const users = await User
     .find({})
   const usersInfo = users.map(user => {
-    const { name, username, id } = user
+    const { name, username, id, todos } = user
 
     const userInfo = {
       username,
       name,
-      id
+      id,
+      todos
     }
     return userInfo
   })

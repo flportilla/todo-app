@@ -6,7 +6,11 @@ const todoSchema = new mongoose.Schema({
     required: true,
   },
   isComplete: Boolean,
-  date: Date
+  date: Date,
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }
 })
 
 todoSchema.set('toJSON', {
