@@ -15,6 +15,7 @@ const Login = () => {
       <input
         className='login_password'
         type={'password'} />
+      <button type='submit'>login</button>
     </form >
   )
 }
