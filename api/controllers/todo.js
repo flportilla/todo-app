@@ -12,7 +12,7 @@ todoRouter.get('/', async (request, response, next) => {
   const allTodos = await Todo.find({})
   const user = request.user
 
-  // const allTodosInUser = allTodos.filter(todo => user.id === todo.user?.toString())
+  const allTodosInUser = allTodos.filter(todo => user.id === todo.user?.toString())
 
   return response.json(allTodos)
 })
