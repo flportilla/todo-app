@@ -57,16 +57,12 @@ todoRouter.delete('/:id', tokenExtractor, userExtractor, async (request, respons
   const selectedTodo = await Todo.findById(request.params.id)
   const user = request.user
 
-  const todoInUser = user?.todos.filter(todo => todo.toString() === selectedTodo?.id)
+  await Todo.findByIdAndRemove(request.params.id)
 
-  if (todoInUser?.toString() === selectedTodo?.id) {
-    await Todo.findByIdAndRemove(request.params.id)
+  user.todos = user.todos.filter(todo => todo.toString() !== selectedTodo?.id)
+  await user.save()
+  return response.status(204).end()
 
-    user.todos = user.todos.filter(todo => todo.toString() !== selectedTodo?.id)
-    await user.save()
-    return response.status(204).end()
-  }
-  return response.status(401).end()
 })
 
 module.exports = todoRouter

@@ -1,8 +1,6 @@
 import axios from "axios";
 const baseUrl = 'http://localhost:3005/api/todos'
 
-
-
 const setToken = newToken => {
   const token = `bearer ${newToken}`
   axios.defaults.headers.common['Authorization'] = token
@@ -10,13 +8,11 @@ const setToken = newToken => {
 
 
 const getTodos = async () => {
-
   const response = await axios.get(baseUrl)
   return response.data
 }
 
 const addTodo = async (todoObj) => {
-
   const response = await axios.post(baseUrl, todoObj)
   return response.data
 }

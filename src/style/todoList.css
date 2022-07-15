@@ -3,18 +3,19 @@
   flex-direction: column;
   margin: 0 20px;
   border-bottom: 1px solid black;
+
 }
 
 .todo_list .add_todo_form {
   display: flex;
   justify-content: space-between;
   margin: 10px 0;
-
 }
 
 .todo_list .add_todo_form>input {
   flex: 1;
   margin-right: 10px;
+
 }
 
 .todo_list>ul {
@@ -24,4 +25,12 @@
 
 .todo_list>ul>li {
   list-style: none;
+}
+
+.todo_list .todo_label {
+  display: block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 100%;
 }
