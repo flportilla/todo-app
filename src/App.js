@@ -123,10 +123,10 @@ function App() {
               setPassword={setPassword}
               handleLogin={handleLogin} />
             : <>
-              <div className='login_form'
+              <div className='logged_info'
               >
                 Welcome {user.name}
-                <button onClick={handleLogOut}>Log out</button>
+                <button onClick={handleLogOut}>Logout</button>
               </div>
 
             </>

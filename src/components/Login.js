@@ -1,15 +1,11 @@
 import React from 'react'
+import "../style/header.css"
 
 const Login = ({ handleLogin, username, password, setUsername, setPassword }) => {
 
 
   return (
-    <div style={{
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      margin: "5px",
-    }}>
+    <div className='login_info_container'>
       <form
         className='login_form'
         onSubmit={handleLogin}
