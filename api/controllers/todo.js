@@ -7,12 +7,11 @@ const userExtractor = middleware.userExtractor
 const tokenExtractor = middleware.tokenExtractor
 
 //Handle GET all the todos
-todoRouter.get('/', async (request, response, next) => {
+todoRouter.get('/', tokenExtractor, userExtractor, async (request, response, next) => {
 
-  const allTodos = await Todo.find({})
   const user = request.user
-
-  const allTodosInUser = allTodos.filter(todo => user.id === todo.user?.toString())
+  const allTodos = await Todo
+    .find({ user: user.id })
 
   return response.json(allTodos)
 })
