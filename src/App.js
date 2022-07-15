@@ -3,7 +3,8 @@ import CompletedTask from './components/CompletedTask';
 import Header from './components/Header';
 import Login from './components/Login';
 import PendingTasks from './components/PendingTasks'
-import todoServices from './services/todos'
+import todoService from './services/todos'
+import loginService from './services/login'
 import './style/header.css'
 
 function App() {
@@ -13,12 +14,32 @@ function App() {
   const [flag, setFlag] = useState(false)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [user, setUser] = useState(null)
 
   useEffect(() => {
-    todoServices
-      .getTodos()
-      .then(todos => setTodos(todos))
-  }, [flag])
+
+    const loggedUserJSON = window.localStorage.getItem('loggerTodoUser')
+
+    if (JSON.parse(loggedUserJSON)) {
+      const user = JSON.parse(loggedUserJSON)
+      todoService.setToken(user.token)
+
+      todoService
+        .getTodos()
+        .then(todos => setTodos(todos))
+
+    }
+  }, [flag, user])
+
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem('loggerTodoUser')
+
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON)
+      setUser(user)
+      todoService.setToken(user.token)
+    }
+  }, [])
 
   //Check if the todos are marked as completed or not and change the list acordingly
   const isCompleted = async (id) => {
@@ -26,12 +47,12 @@ function App() {
     const selectedTodo = todos.find(todo => todo.id === id)
     const changedTodo = { ...selectedTodo, isComplete: !selectedTodo.isComplete }
 
-    await todoServices.markAsComplete(id, changedTodo)
+    await todoService.markAsComplete(id, changedTodo)
     setFlag(!flag)
   }
   //Handle the delete of todos on click
   const deleteTodo = async (id) => {
-    await todoServices
+    await todoService
       .removeTodo(id)
     setFlag(!flag)
   }
@@ -43,7 +64,7 @@ function App() {
       isComplete: false
     }
 
-    await todoServices.addTodo(newTodoObj)
+    await todoService.addTodo(newTodoObj)
     setFlag(!flag)
   }
   //This two functions use the memo hook to filter the results on a search
@@ -59,9 +80,33 @@ function App() {
 
 
   //Handle login
-  const handleLogin = (e) => {
-    console.log(username, password)
+  const handleLogin = async (e) => {
+    e.preventDefault()
+
+    try {
+      const user = await loginService.login({
+        username, password
+      })
+
+      window.localStorage.setItem(
+        'loggerTodoUser', JSON.stringify(user)
+      )
+
+      todoService.setToken(user.token)
+      setUser(user)
+      setUsername('')
+      setPassword('')
+
+    } catch (exception) {
+      console.log(exception)
+    }
+
   };
+  const handleLogOut = () => {
+    setUser(null)
+    window.localStorage.clear()
+    window.location.reload()
+  }
 
   return (
     <>
@@ -69,12 +114,23 @@ function App() {
         <Header
           handleSearch={handleSearch}
         />
-        <Login
-          username={username}
-          setUsername={setUsername}
-          password={password}
-          setPassword={setPassword}
-          handleLogin={handleLogin} />
+        {
+          user === null
+            ? <Login
+              username={username}
+              setUsername={setUsername}
+              password={password}
+              setPassword={setPassword}
+              handleLogin={handleLogin} />
+            : <>
+              <div className='login_form'
+              >
+                Welcome {user.name}
+                <button onClick={handleLogOut}>Log out</button>
+              </div>
+
+            </>
+        }
       </div>
       <PendingTasks
         createTodo={createTodo}
