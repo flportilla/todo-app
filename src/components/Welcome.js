@@ -4,7 +4,6 @@ const Welcome = () => {
 
   const welcomeStyle = {
     textAlign: 'center',
-    marginTop: '-20px'
   }
 
   return (

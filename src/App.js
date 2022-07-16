@@ -8,6 +8,7 @@ import loginService from './services/login'
 import './style/header.css'
 import Notification from './components/Notification';
 import Welcome from './components/Welcome';
+import NewUser from './components/NewUser';
 
 function App() {
   const [searchValue, setSearchValue] = useState('')
@@ -153,14 +154,14 @@ function App() {
 
   return (
     <>
-
+      <NewUser />
       <div className='header_container'>
+        <Notification
+          action={todoAction} />
         <Header
           isLogged={user}
           handleSearch={handleSearch}
         />
-        <Notification
-          action={todoAction} />
         {
           user === null
             ? <Login
