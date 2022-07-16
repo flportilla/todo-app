@@ -10,24 +10,15 @@ const Login = ({ handleLogin, username, password, setUsername, setPassword }) =>
         className='login_form'
         onSubmit={handleLogin}
       >
-        <label htmlFor='user_name'
-        >
-          User
-        </label>
-
         <input
+          required
           value={username}
           onChange={({ target }) => setUsername(target.value)}
           className='login_user'
           type={'text'}
         />
-
-        <label htmlFor='user_name'
-        >
-          Password
-        </label>
-
         <input
+          required
           value={password}
           onChange={({ target }) => setPassword(target.value)}
           className='login_password'

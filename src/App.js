@@ -13,8 +13,8 @@ function App() {
   const [todos, setTodos] = useState([])
   const [newTodo, setNewtodo] = useState('')
 
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+  const [username, setUsername] = useState('Username')
+  const [password, setPassword] = useState('Password')
   const [user, setUser] = useState(null)
 
   const [flag, setFlag] = useState(false)
@@ -152,6 +152,7 @@ function App() {
 
   return (
     <>
+
       <div className='header_container'>
         <Header
           handleSearch={handleSearch}
@@ -169,8 +170,10 @@ function App() {
             : <>
               <div className='logged_info'
               >
-                Welcome {user.name}
+                <span>Welcome</span>
+                <span>{user.name}</span>
                 <button onClick={handleLogOut}>Logout</button>
+                <span >---</span>
               </div>
             </>
         }
