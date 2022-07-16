@@ -7,6 +7,7 @@ import todoService from './services/todos'
 import loginService from './services/login'
 import './style/header.css'
 import Notification from './components/Notification';
+import Welcome from './components/Welcome';
 
 function App() {
   const [searchValue, setSearchValue] = useState('')
@@ -155,6 +156,7 @@ function App() {
 
       <div className='header_container'>
         <Header
+          isLogged={user}
           handleSearch={handleSearch}
         />
         <Notification
@@ -178,20 +180,28 @@ function App() {
             </>
         }
       </div>
-      <PendingTasks
-        createTodo={createTodo}
-        toDos={todos}
-        isCompleted={isCompleted}
-        deleteTodo={deleteTodo}
-        newTodo={newTodo}
-        setNewtodo={setNewtodo}
-        todoList={todoList}
-      />
-      <CompletedTask
-        toDos={todos}
-        isCompleted={isCompleted}
-        deleteTodo={deleteTodo}
-      />
+      <div>
+        {
+          user === null
+            ? <Welcome />
+            : <>
+              <PendingTasks
+                createTodo={createTodo}
+                toDos={todos}
+                isCompleted={isCompleted}
+                deleteTodo={deleteTodo}
+                newTodo={newTodo}
+                setNewtodo={setNewtodo}
+                todoList={todoList}
+              />
+              <CompletedTask
+                toDos={todos}
+                isCompleted={isCompleted}
+                deleteTodo={deleteTodo}
+              />
+            </>
+        }
+      </div>
     </>
   );
 }

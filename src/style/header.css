@@ -73,4 +73,7 @@ html {
   align-items: center;
 }
 
-.logged_info button {}
+.search_container {
+  display: flex;
+  gap: 10px;
+}
