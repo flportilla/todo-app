@@ -16,7 +16,7 @@ const List = ({ todo, isCompleted, deleteTodo, id, completedClass }) => {
       </label>
       <button
         type='button'
-        onClick={() => deleteTodo(id)}
+        onClick={({ target }) => { deleteTodo(id, target) }}
       >
         Delete
       </button>

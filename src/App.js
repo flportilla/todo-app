@@ -6,6 +6,7 @@ import PendingTasks from './components/PendingTasks'
 import todoService from './services/todos'
 import loginService from './services/login'
 import './style/header.css'
+import Notification from './components/Notification';
 
 function App() {
   const [searchValue, setSearchValue] = useState('')
@@ -17,6 +18,8 @@ function App() {
   const [user, setUser] = useState(null)
 
   const [flag, setFlag] = useState(false)
+  const [todoAction, setTodoAction] = useState('')
+
 
   useEffect(() => {
 
@@ -45,28 +48,58 @@ function App() {
 
   //Check if the todos are marked as completed or not and change the list acordingly
   const isCompleted = async (id) => {
+
     const selectedTodo = todos.find(todo => todo.id === id)
     const changedTodo = { ...selectedTodo, isComplete: !selectedTodo.isComplete }
+
+    const isComplete = selectedTodo.isComplete
+      ? 'Shamefully going back to the list'
+      : 'Moving to completed tasks'
+
+    setTodoAction(isComplete)
     await todoService.markAsComplete(id, changedTodo)
+
     setFlag(!flag)
+
+    setTimeout(() => {
+      setTodoAction('')
+      setFlag(!flag)
+    }, 800)
+
   }
 
   //Handle the delete of todos on click
-  const deleteTodo = async (id) => {
-    await todoService
-      .removeTodo(id)
-    setFlag(!flag)
+  const deleteTodo = async (id, target) => {
+
+    target.disabled = true
+    setTodoAction('Removing from the list')
+
+    await todoService.removeTodo(id)
+
+    setTimeout(() => {
+      setTodoAction('')
+      target.disabled = false
+      setFlag(!flag)
+    }, 800)
+
   }
 
   //Handle the creation of new todos and adds them to the list
   const createTodo = async (e) => {
     e.preventDefault()
+
     const newTodoObj = {
       name: newTodo,
       isComplete: false
     }
-
     await todoService.addTodo(newTodoObj)
+    setTodoAction('Adding to the list')
+
+    setTimeout(() => {
+      setTodoAction('')
+      setFlag(!flag)
+    }, 800)
+
     setFlag(!flag)
   }
 
@@ -81,7 +114,7 @@ function App() {
           .includes(searchValue.toLowerCase()))
   }, [searchValue, todos])
 
-  //Handle login
+  //Handle login/ logout
   const handleLogin = async (e) => {
     e.preventDefault()
 
@@ -116,6 +149,8 @@ function App() {
         <Header
           handleSearch={handleSearch}
         />
+        <Notification
+          action={todoAction} />
         {
           user === null
             ? <Login
