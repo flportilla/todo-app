@@ -11,10 +11,12 @@ function App() {
   const [searchValue, setSearchValue] = useState('')
   const [todos, setTodos] = useState([])
   const [newTodo, setNewtodo] = useState('')
-  const [flag, setFlag] = useState(false)
+
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
+
+  const [flag, setFlag] = useState(false)
 
   useEffect(() => {
 
@@ -43,19 +45,19 @@ function App() {
 
   //Check if the todos are marked as completed or not and change the list acordingly
   const isCompleted = async (id) => {
-
     const selectedTodo = todos.find(todo => todo.id === id)
     const changedTodo = { ...selectedTodo, isComplete: !selectedTodo.isComplete }
-
     await todoService.markAsComplete(id, changedTodo)
     setFlag(!flag)
   }
+
   //Handle the delete of todos on click
   const deleteTodo = async (id) => {
     await todoService
       .removeTodo(id)
     setFlag(!flag)
   }
+
   //Handle the creation of new todos and adds them to the list
   const createTodo = async (e) => {
     e.preventDefault()
@@ -67,6 +69,7 @@ function App() {
     await todoService.addTodo(newTodoObj)
     setFlag(!flag)
   }
+
   //This two functions use the memo hook to filter the results on a search
   const handleSearch = (e) => {
     setSearchValue(e.target.value)
@@ -77,7 +80,6 @@ function App() {
         todo.name.toLowerCase()
           .includes(searchValue.toLowerCase()))
   }, [searchValue, todos])
-
 
   //Handle login
   const handleLogin = async (e) => {
@@ -128,7 +130,6 @@ function App() {
                 Welcome {user.name}
                 <button onClick={handleLogOut}>Logout</button>
               </div>
-
             </>
         }
       </div>

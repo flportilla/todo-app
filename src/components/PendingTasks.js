@@ -1,5 +1,5 @@
 import React from 'react'
-import '../style/todoList.css'
+import '../style/pendingTasks.css'
 import List from './List'
 
 const ListItem = ({ toDos, isCompleted, deleteTodo, todoList, setNewtodo, newTodo, createTodo }) => {
@@ -37,6 +37,7 @@ const ListItem = ({ toDos, isCompleted, deleteTodo, todoList, setNewtodo, newTod
                   pendingTodos.map(todo => {
                     return (
                       <List
+                        completedClass={'todo_label'}
                         key={todo.id}
                         id={todo.id}
                         todo={todo}

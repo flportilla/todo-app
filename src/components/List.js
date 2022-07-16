@@ -1,11 +1,11 @@
 import React from 'react'
 
-const List = ({ todo, isCompleted, deleteTodo, id }) => {
+const List = ({ todo, isCompleted, deleteTodo, id, completedClass }) => {
   return (
     <li>
       <label
         htmlFor={id}
-        className={'todo_label'}>
+        className={completedClass}>
         <input
           id={id}
           type='checkbox'
