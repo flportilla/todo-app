@@ -38,7 +38,8 @@ const Login = ({ handleLogin, username, password, setUsername, setPassword }) =>
           type='button'
           className='display_newUser_form'
           onClick={handleDisplayForm}
-        >new user? click here</button>
+        >
+          new user? click here</button>
         <NewUser isDisplayed={isDisplayed} />
       </div>
     </div>

@@ -6,7 +6,7 @@ const NewUser = ({ isDisplayed }) => {
     <div className={isDisplayed ? 'new_user_form_container' : 'new_user_form_container hide'}>
       <form className='new_user_form'>
         <label htmlFor='username'>
-          Username
+          New Username
         </label>
         <input
           name='username'
@@ -26,7 +26,7 @@ const NewUser = ({ isDisplayed }) => {
           required
         />
         <label htmlFor='password'>
-          Password
+          New Password
         </label>
         <input
           name='password'
@@ -40,11 +40,14 @@ const NewUser = ({ isDisplayed }) => {
         </label>
         <input
           name='password'
-          id='password'
           type={'password'}
           minLength={5}
           required
         />
+        <button
+          type='submit'>
+          Create new user
+        </button>
       </form>
     </div>
   )

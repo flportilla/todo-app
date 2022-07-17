@@ -8,7 +8,7 @@ import loginService from './services/login'
 import './style/header.css'
 import Notification from './components/Notification';
 import Welcome from './components/Welcome';
-import NewUser from './components/NewUser';
+import LoggedInfo from './components/LoggedInfo';
 
 function App() {
   const [searchValue, setSearchValue] = useState('')
@@ -169,14 +169,13 @@ function App() {
               password={password}
               setPassword={setPassword}
               handleLogin={handleLogin} />
-            : <>
-              <div className='logged_info'
-              >
-                <span>Welcome</span>
-                <span>{user.name}</span>
-                <button onClick={handleLogOut}>Logout</button>
-                <span >---</span>
-              </div>
+            :
+            <>
+              <LoggedInfo
+                userName={user.name}
+                handleLogOut={handleLogOut}
+              />
+
             </>
         }
       </div>
