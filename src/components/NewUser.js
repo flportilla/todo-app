@@ -1,15 +1,35 @@
 import React, { useState } from 'react'
 import '../style/newUser.css'
+import newUserService from '../services/newUser'
 
-const NewUser = ({ isDisplayed }) => {
+const NewUser = ({ isDisplayed, setIsDisplayed }) => {
   const [newUser, setNewUser] = useState('')
   const [newPassword, setNewPassword] = useState('')
   const [newName, setNewName] = useState('')
   const [repeatPassword, setRepeatPassword] = useState('')
 
-  const handeUserCreation = (e) => {
+  const handeUserCreation = async (e) => {
     e.preventDefault();
-    console.log('hello')
+    if (newPassword !== repeatPassword) return alert("Passwords don't match")
+
+    const newUserObj =
+    {
+      "username": newUser,
+      "name": newName,
+      "password": newPassword
+    }
+    try {
+      const user = await newUserService.createuser(newUserObj)
+      alert('user created')
+      setNewUser('')
+      setNewPassword('')
+      setNewName('')
+      setRepeatPassword('')
+      setIsDisplayed(!isDisplayed)
+
+    } catch (error) {
+      alert('User already exist')
+    }
   }
 
   return (

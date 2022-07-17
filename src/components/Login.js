@@ -40,7 +40,9 @@ const Login = ({ handleLogin, username, password, setUsername, setPassword }) =>
           onClick={handleDisplayForm}
         >
           new user? click here</button>
-        <NewUser isDisplayed={isDisplayed} />
+        <NewUser
+          isDisplayed={isDisplayed}
+          setIsDisplayed={setIsDisplayed} />
       </div>
     </div>
   )

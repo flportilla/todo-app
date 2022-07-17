@@ -142,7 +142,7 @@ function App() {
       setPassword('')
 
     } catch (exception) {
-      console.log(exception)
+      alert('Username or password is invalid')
     }
 
   };
