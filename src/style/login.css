@@ -20,9 +20,14 @@
   text-align: center;
 }
 
-.login_info_container a {
+.login_info_container .display_newUser_form {
   margin: auto;
   font-size: small;
+  background-color: transparent;
+  border: none;
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .logged_info {

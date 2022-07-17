@@ -1,9 +1,9 @@
 import React from 'react'
 import '../style/newUser.css'
 
-const NewUser = () => {
+const NewUser = ({ isDisplayed }) => {
   return (
-    <div className='new_user_form_container'>
+    <div className={isDisplayed ? 'new_user_form_container' : 'new_user_form_container hide'}>
       <form className='new_user_form'>
         <label htmlFor='username'>
           Username
