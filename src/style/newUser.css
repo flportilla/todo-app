@@ -1,22 +1,26 @@
-.new_user_container {
+.new_user_form_container {
   width: 300px;
   border: 1px solid rgb(148, 148, 148);
   padding: 5px;
   border-radius: 5px;
   margin: 5px;
+  top: 20px;
+  left: -25%;
+  position: absolute;
+  display: none;
 }
 
-.new_user_container .new_user_form {
+.new_user_form_container .new_user_form {
   display: flex;
   flex-direction: column;
   padding: 0;
   margin: 0 5px;
 }
 
-.new_user_container .new_user_form label {
+.new_user_form_container .new_user_form label {
   margin-top: 10px;
 }
 
-.new_user_container .new_user_form input {
+.new_user_form_container .new_user_form input {
   margin-bottom: 10px;
 }

@@ -1,5 +1,7 @@
 import React from 'react'
-import "../style/header.css"
+import "../style/login.css"
+import '../style/newUser.css'
+import NewUser from './NewUser'
 
 const Login = ({ handleLogin, username, password, setUsername, setPassword }) => {
 
@@ -27,7 +29,10 @@ const Login = ({ handleLogin, username, password, setUsername, setPassword }) =>
 
         <button type='submit'>login</button>
       </form >
-      <a href='/'>new user? click here</a>
+      <div className='new_user_modal'>
+        <a href='/'>new user? click here</a>
+        <NewUser />
+      </div>
     </div>
   )
 }

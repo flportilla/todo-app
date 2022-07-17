@@ -154,7 +154,6 @@ function App() {
 
   return (
     <>
-      <NewUser />
       <div className='header_container'>
         <Notification
           action={todoAction} />
