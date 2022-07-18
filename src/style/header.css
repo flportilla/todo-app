@@ -19,9 +19,10 @@ html {
 .header_container {
   display: flex;
   min-width: fit-content;
-  justify-content: space-between;
+  gap: 10%;
   align-items: center;
-  height: 80px;
+  justify-content: space-between;
+  height: 90px;
   margin: 0 20px;
 }
 
@@ -40,19 +41,7 @@ html {
   margin: 0;
 }
 
-.header_container .login_form {
-  min-width: 25%;
+.header_container .search_container {
   display: flex;
-  justify-content: center;
-  gap: 5px;
-  margin: 0;
-}
-
-.header_container .login_form input {
-  align-self: flex-end;
-  width: 25%;
-}
-
-.header_container .login_form button {
-  width: 10%;
+  gap: 10px;
 }

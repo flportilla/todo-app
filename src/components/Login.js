@@ -1,31 +1,49 @@
-import React from 'react'
+import React, { useState } from 'react'
+import "../style/login.css"
+import '../style/newUser.css'
+import NewUser from './NewUser'
 
-const Login = () => {
+const Login = ({ handleLogin, username, password, setUsername, setPassword }) => {
 
+  const [isDisplayed, setIsDisplayed] = useState(false)
+  const handleDisplayForm = () => {
+    setIsDisplayed(!isDisplayed)
+  }
 
   return (
-    <div style={{
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      margin: "5px",
-    }}>
-      <form className='login_form'>
-        <label htmlFor='user_name'>
-          User
-        </label>
+    <div className='login_info_container'>
+      <form
+        className='login_form'
+        onSubmit={handleLogin}
+      >
         <input
+          required
+          value={username}
+          onChange={({ target }) => setUsername(target.value)}
           className='login_user'
-          type={'text'} />
-        <label htmlFor='user_name'>
-          Password
-        </label>
+          type={'text'}
+        />
         <input
+          required
+          value={password}
+          onChange={({ target }) => setPassword(target.value)}
           className='login_password'
-          type={'password'} />
+          type={'password'}
+        />
+
         <button type='submit'>login</button>
       </form >
-      <a href='/'>new user? click here</a>
+      <div className='new_user_modal'>
+        <button
+          type='button'
+          className='display_newUser_form'
+          onClick={handleDisplayForm}
+        >
+          new user? click here</button>
+        <NewUser
+          isDisplayed={isDisplayed}
+          setIsDisplayed={setIsDisplayed} />
+      </div>
     </div>
   )
 }
