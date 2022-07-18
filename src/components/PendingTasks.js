@@ -35,6 +35,7 @@ const ListItem = ({ toDos, isCompleted, deleteTodo, todoList, createTodo }) => {
                   pendingTodos.map(todo => {
                     return (
                       <List
+                        key={todo.id}
                         id={todo.id}
                         todo={todo}
                         isCompleted={isCompleted}

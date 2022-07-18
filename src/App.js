@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import CompletedTask from './components/CompletedTask';
 import Header from './components/Header';
-import TodoList from './components/TodoList'
+import PendingTasks from './components/PendingTasks'
 import todoServices from './services/todos'
 
 function App() {
@@ -14,13 +14,16 @@ function App() {
       .getTodos()
       .then(todos => setTodos(todos))
   }, [flag])
+
   //Check if the todos are marked as completed or not and change the list acordingly
-  const completeTodo = async (id) => {
+  const isCompleted = async (id) => {
+
     const selectedTodo = todos.find(todo => todo.id === id)
     const changedTodo = { ...selectedTodo, isComplete: !selectedTodo.isComplete }
     await todoServices.markAsComplete(id, changedTodo)
 
     setFlag(!flag)
+
   }
 
 
@@ -31,6 +34,7 @@ function App() {
       .removeTodo(id)
     setFlag(!flag)
   }
+
   //Handle the creation of new todos and adds them to the list
   const createTodo = async (e) => {
 
@@ -51,6 +55,7 @@ function App() {
   const handleSearch = (e) => {
     setSearchValue(e.target.value)
   }
+
   const todoList = useMemo(() => {
     return todos
       .filter(todo =>
@@ -63,16 +68,16 @@ function App() {
       <Header
         handleSearch={handleSearch}
       />
-      <TodoList
+      <PendingTasks
         toDos={todos}
-        completeTodo={completeTodo}
+        isCompleted={isCompleted}
         deleteTodo={deleteTodo}
         createTodo={createTodo}
         todoList={todoList}
       />
       <CompletedTask
         toDos={todos}
-        completeTodo={completeTodo}
+        isCompleted={isCompleted}
         deleteTodo={deleteTodo}
       />
     </>

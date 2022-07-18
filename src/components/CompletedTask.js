@@ -1,7 +1,8 @@
 import React from 'react'
 import '../style/completedTasks.css'
+import List from './List'
 
-const CompletedTask = ({ toDos, completeTodo, deleteTodo }) => {
+const CompletedTask = ({ toDos, isCompleted, deleteTodo }) => {
 
   const completedTodos = toDos.filter(todo => todo.isComplete)
 
@@ -16,23 +17,13 @@ const CompletedTask = ({ toDos, completeTodo, deleteTodo }) => {
             : < ul >{
               completedTodos.map(todo => {
                 return (
-                  <li key={todo.id}>
-                    <label htmlFor={todo.id}>
-                      <input
-                        type='checkbox'
-                        onChange={() => completeTodo(todo.id)}
-                        checked={todo.isComplete}
-                        id={todo.id}
-                      />
-                      {todo.name}
-                    </label>
-                    <button
-                      type='button'
-                      onClick={() => deleteTodo(todo.id)}
-                    >
-                      delete
-                    </button>
-                  </li>
+                  <List
+                    key={todo.id}
+                    id={todo.id}
+                    todo={todo}
+                    isCompleted={isCompleted}
+                    deleteTodo={deleteTodo}
+                  />
                 )
               })
             }
