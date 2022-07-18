@@ -12,7 +12,7 @@ const config = require('./utils/config')
 
 const mongoose = require('mongoose')
 
-mongoose.connect(process.env.MONGODB_URI)
+mongoose.connect(`${process.env.MONGODB_URI}`)
   .then(() => {
     console.log('connected to MongoDB')
   })
