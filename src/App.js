@@ -1,83 +1,144 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import CompletedTask from './components/CompletedTask';
 import Header from './components/Header';
-import TodoList from './components/TodoList'
+import Login from './components/Login';
+import PendingTasks from './components/PendingTasks'
+import todoService from './services/todos'
+import loginService from './services/login'
+import './style/header.css'
+import Notification from './components/Notification';
+import Welcome from './components/Welcome';
+import LoggedInfo from './components/LoggedInfo';
 
 function App() {
   const [searchValue, setSearchValue] = useState('')
-  const [todos, setTodos] = useState([
-    {
-      id: 1,
-      name: "ToDo 1",
-      isComplete: false
-    },
-    {
-      id: 2,
-      name: "ToDo 2",
-      isComplete: true
-    },
-    {
-      id: 3,
-      name: "ToDo 3",
-      isComplete: true
-    },
-    {
-      id: 4,
-      name: "ToDo 4",
-      isComplete: false
-    },
-    {
-      id: 5,
-      name: "ToDo 5",
-      isComplete: true
-    },
-    {
-      id: 6,
-      name: "ToDo 6",
-      isComplete: false
-    },
-    {
-      id: 7,
-      name: "ToDo 7",
-      isComplete: true
-    },
-    {
-      id: 8,
-      name: "ToDo 8",
-      isComplete: false
-    },
-    {
-      id: 9,
-      name: "ToDo 9",
-      isComplete: true
+  const [todos, setTodos] = useState([])
+  const [newTodo, setNewtodo] = useState('')
+
+  const [username, setUsername] = useState('Username')
+  const [password, setPassword] = useState('Password')
+  const [user, setUser] = useState(null)
+
+  const [flag, setFlag] = useState(false)
+  const [todoAction, setTodoAction] = useState('')
+
+
+  useEffect(() => {
+
+    const loggedUserJSON = window.localStorage.getItem('loggerTodoUser')
+
+    if (JSON.parse(loggedUserJSON)) {
+      const user = JSON.parse(loggedUserJSON)
+      todoService.setToken(user.token)
+
+      todoService
+        .getTodos()
+        .then(todos => setTodos(todos))
+
     }
-  ])
+  }, [flag, user])
+
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem('loggerTodoUser')
+
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON)
+      setUser(user)
+      todoService.setToken(user.token)
+    }
+  }, [])
 
   //Check if the todos are marked as completed or not and change the list acordingly
-  const completeTodo = (id) => {
-    const selectedTodo = todos.find(todo => todo.id === Number(id))
-    const changedTodo = { ...selectedTodo, isComplete: !selectedTodo?.isComplete }
-    setTodos(todos.map(todo => todo.id !== id ? todo : changedTodo))
+  const isCompleted = async (id) => {
+
+    const selectedTodo = todos.find(todo => todo.id === id)
+    const changedTodo = { ...selectedTodo, isComplete: !selectedTodo.isComplete }
+
+    const isComplete = selectedTodo.isComplete
+      ? 'Shamefully going back to the list'
+      : 'Moving to completed tasks'
+
+    setTodoAction(isComplete)
+    await todoService.markAsComplete(id, changedTodo)
+
+    setFlag(!flag)
+
+    setTimeout(() => {
+      setTodoAction('')
+      setFlag(!flag)
+    }, 800)
+
+
+  }
+  //Handle editing a ToDo
+  const edit = async (id, e) => {
+    e.preventDefault()
+    const newTodo = prompt('Please enter the new task: ')
+
+    const selectedTodo = todos.find(todo => todo.id === id)
+    const changedTodo = { ...selectedTodo, name: newTodo }
+
+    setTodoAction('Editing task')
+    await todoService.edit(id, changedTodo)
+}
+
+  //Handle the delete of todos on click
+  const deleteTodo = async (id) => {
+    await todoServices
+      .removeTodo(id)
+
+    setFlag(!flag)
+
+    setTimeout(() => {
+      setTodoAction('')
+      setFlag(!flag)
+    }, 800)
+
 
   }
   //Handle the delete of todos on click
-  const deleteTodo = (id) => {
-    setTodos(todos.filter(todo => todo.id !== Number(id)))
+  const deleteTodo = async (id, target) => {
+
+    target.disabled = true
+    setTodoAction('Removing from the list')
+
+    await todoService.removeTodo(id)
+
+    setTimeout(() => {
+      setTodoAction('')
+      target.disabled = false
+      setFlag(!flag)
+    }, 800)
+
   }
+
   //Handle the creation of new todos and adds them to the list
-  const createTodo = (e) => {
-    const input = e.target.parentElement.firstChild
-    const newTodoValue = input.value
+  const createTodo = async (e) => {
+
+    e.preventDefault()
+    const input = e.target.firstChild
+    input.disabled = true
 
     const newTodoObj = {
-      id: Date.now(),
-      name: newTodoValue,
+      name: newTodo,
       isComplete: false
-    }
+ 
+    await todoService.addTodo(newTodoObj)
+    setTodoAction('Adding to the list')
 
-    setTodos(todos.concat(newTodoObj))
-    input.value = ''
+    setTimeout(() => {
+
+      setTodoAction('')
+      setNewtodo('')
+      setFlag(!flag)
+      input.disabled = false
+
+    }, 800)
+
+
+    setFlag(!flag)
   }
+
   //This two functions use the memo hook to filter the results on a search
   const handleSearch = (e) => {
     setSearchValue(e.target.value)
@@ -89,23 +150,85 @@ function App() {
           .includes(searchValue.toLowerCase()))
   }, [searchValue, todos])
 
+  //Handle login/ logout
+  const handleLogin = async (e) => {
+    e.preventDefault()
+
+    try {
+      const user = await loginService.login({
+        username, password
+      })
+
+      window.localStorage.setItem(
+        'loggerTodoUser', JSON.stringify(user)
+      )
+
+      todoService.setToken(user.token)
+      setUser(user)
+      setUsername('')
+      setPassword('')
+
+    } catch (exception) {
+      alert('Username or password is invalid')
+    }
+
+  };
+  const handleLogOut = () => {
+    setUser(null)
+    window.localStorage.clear()
+    window.location.reload()
+  }
+
   return (
     <>
-      <Header
-        handleSearch={handleSearch}
-      />
-      <TodoList
-        toDos={todos}
-        completeTodo={completeTodo}
-        deleteTodo={deleteTodo}
-        createTodo={createTodo}
-        todoList={todoList}
-      />
-      <CompletedTask
-        toDos={todos}
-        completeTodo={completeTodo}
-        deleteTodo={deleteTodo}
-      />
+      <div className='header_container'>
+        <Notification
+          action={todoAction} />
+        <Header
+          isLogged={user}
+          handleSearch={handleSearch}
+        />
+        {
+          user === null
+            ? <Login
+              username={username}
+              setUsername={setUsername}
+              password={password}
+              setPassword={setPassword}
+              handleLogin={handleLogin} />
+            :
+            <>
+              <LoggedInfo
+                userName={user.name}
+                handleLogOut={handleLogOut}
+              />
+
+            </>
+        }
+      </div>
+      <div>
+        {
+          user === null
+            ? <Welcome />
+            : <>
+              <PendingTasks
+                createTodo={createTodo}
+                toDos={todos}
+                isCompleted={isCompleted}
+                deleteTodo={deleteTodo}
+                newTodo={newTodo}
+                setNewtodo={setNewtodo}
+                todoList={todoList}
+                edit={edit}
+              />
+              <CompletedTask
+                toDos={todos}
+                isCompleted={isCompleted}
+                deleteTodo={deleteTodo}
+              />
+            </>
+        }
+      </div>
     </>
   );
 }

@@ -18,13 +18,30 @@ html {
 
 .header_container {
   display: flex;
-  justify-content: space-between;
-  height: 80px;
+  min-width: fit-content;
+  gap: 10%;
   align-items: center;
+  justify-content: space-between;
+  height: 90px;
   margin: 0 20px;
 }
 
-.header_container>form>label>input {
-  min-width: 300px;
-  margin-right: 0;
+.header_container a {
+  min-width: 10%;
+}
+
+.header_container .search_form {
+  min-width: 20%;
+  display: flex;
+  margin: 0;
+}
+
+.header_container .search_form input {
+  flex: 1;
+  margin: 0;
+}
+
+.header_container .search_container {
+  display: flex;
+  gap: 10px;
 }

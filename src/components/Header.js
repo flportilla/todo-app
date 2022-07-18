@@ -1,30 +1,30 @@
 import React from 'react'
 import '../style/header.css'
 
-const Header = ({ handleSearch }) => {
-
-  const clearSearch = (e) => e.target.parentElement.firstChild.lastChild.value = ''
+const Header = ({ handleSearch, isLogged }) => {
 
   return (
-    <div className='header_container'>
-      <a href='http://localhost:3000/'>Home</a>
-      <form>
-        <label htmlFor='searchBar'>
-          Search
-          <input
-            id='searchBar'
-            type='text'
-            onChange={(e) => handleSearch(e)}
-          />
-        </label>
-        <button
-          type='button'
-          onClick={clearSearch}
-        >
-          Clear
-        </button>
+    <div className='search_container'>
+      <a href='/'>Home</a>
+      <form
+        className='search_form'
+        onSubmit={(e) => e.preventDefault()}>
+        {
+          isLogged === null
+            ? ''
+            : <>
+              <label htmlFor='searchBar'>
+                Search
+              </label>
+              <input
+                className='search_bar'
+                id='searchBar'
+                type='text'
+                onChange={(e) => handleSearch(e)}
+              />
+            </>
+        }
       </form>
-      <div> """""login credentials""""" </div>
     </div>
   )
 }
