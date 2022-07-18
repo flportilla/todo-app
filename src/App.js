@@ -69,7 +69,26 @@ function App() {
     }, 800)
 
   }
+  //Handle editing a ToDo
+  const edit = async (id, e) => {
+    e.preventDefault()
+    const newTodo = prompt('Please enter the new task: ')
 
+    const selectedTodo = todos.find(todo => todo.id === id)
+    const changedTodo = { ...selectedTodo, name: newTodo }
+
+    setTodoAction('Editing task')
+    await todoService.edit(id, changedTodo)
+
+    setFlag(!flag)
+
+    setTimeout(() => {
+      setTodoAction('')
+      setFlag(!flag)
+    }, 800)
+
+
+  }
   //Handle the delete of todos on click
   const deleteTodo = async (id, target) => {
 
@@ -192,6 +211,7 @@ function App() {
                 newTodo={newTodo}
                 setNewtodo={setNewtodo}
                 todoList={todoList}
+                edit={edit}
               />
               <CompletedTask
                 toDos={todos}
