@@ -2,7 +2,7 @@ import React from 'react'
 import '../style/pendingTasks.css'
 import List from './List'
 
-const ListItem = ({ toDos, isCompleted, deleteTodo, todoList, setNewtodo, newTodo, createTodo }) => {
+const ListItem = ({ toDos, isCompleted, deleteTodo, todoList, setNewtodo, newTodo, createTodo, edit }) => {
 
   const pendingTodos = todoList.filter(todo => !todo.isComplete)
 
@@ -37,12 +37,14 @@ const ListItem = ({ toDos, isCompleted, deleteTodo, todoList, setNewtodo, newTod
                   pendingTodos.map(todo => {
                     return (
                       <List
+                        isPending={true}
                         completedClass={'todo_label'}
                         key={todo.id}
                         id={todo.id}
                         todo={todo}
                         isCompleted={isCompleted}
                         deleteTodo={deleteTodo}
+                        edit={edit}
                       />
                     )
                   })

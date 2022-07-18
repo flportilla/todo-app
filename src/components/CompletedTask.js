@@ -18,6 +18,8 @@ const CompletedTask = ({ toDos, isCompleted, deleteTodo }) => {
               completedTodos.map(todo => {
                 return (
                   <List
+                    isPending={null}
+                    edit={null}
                     completedClass={'todo_label isCompleted'}
                     key={todo.id}
                     id={todo.id}
