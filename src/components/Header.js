@@ -28,5 +28,4 @@ const Header = ({ handleSearch }) => {
     </div>
   )
 }
-
 export default Header
