@@ -3,8 +3,6 @@ import '../style/header.css'
 
 const Header = ({ handleSearch }) => {
 
-  const clearSearch = (e) => e.target.parentElement.firstChild.lastChild.value = ''
-
   return (
     <div className='header_container'>
       <a href='/'>Home</a>
@@ -17,12 +15,6 @@ const Header = ({ handleSearch }) => {
             onChange={(e) => handleSearch(e)}
           />
         </label>
-        <button
-          type='reset'
-          onClick={clearSearch}
-        >
-          Clear
-        </button>
       </form>
       <div> """""login credentials""""" </div>
     </div>
