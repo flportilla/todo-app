@@ -1,6 +1,7 @@
+require('dotenv').config()
+require('express-async-errors')
 const express = require('express')
 const cors = require('cors')
-require('express-async-errors')
 const app = express()
 
 const todoRouter = require('./controllers/todo')
@@ -11,7 +12,7 @@ const config = require('./utils/config')
 
 const mongoose = require('mongoose')
 
-mongoose.connect(config.MONGODB_URI)
+mongoose.connect(process.env.MONGODB_URI)
   .then(() => {
     console.log('connected to MongoDB')
   })
