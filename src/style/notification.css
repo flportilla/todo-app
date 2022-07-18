@@ -1,8 +1,8 @@
 .notification_modal {
   position: absolute;
-  top: 15%;
-  left: 40%;
+  top: 75px;
+  left: 50px;
   text-align: center;
-  width: 400px;
+  width: fit-content;
   height: fit-content;
 }

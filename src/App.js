@@ -8,6 +8,7 @@ import loginService from './services/login'
 import './style/header.css'
 import Notification from './components/Notification';
 import Welcome from './components/Welcome';
+import LoggedInfo from './components/LoggedInfo';
 
 function App() {
   const [searchValue, setSearchValue] = useState('')
@@ -68,7 +69,26 @@ function App() {
     }, 800)
 
   }
+  //Handle editing a ToDo
+  const edit = async (id, e) => {
+    e.preventDefault()
+    const newTodo = prompt('Please enter the new task: ')
 
+    const selectedTodo = todos.find(todo => todo.id === id)
+    const changedTodo = { ...selectedTodo, name: newTodo }
+
+    setTodoAction('Editing task')
+    await todoService.edit(id, changedTodo)
+
+    setFlag(!flag)
+
+    setTimeout(() => {
+      setTodoAction('')
+      setFlag(!flag)
+    }, 800)
+
+
+  }
   //Handle the delete of todos on click
   const deleteTodo = async (id, target) => {
 
@@ -141,7 +161,7 @@ function App() {
       setPassword('')
 
     } catch (exception) {
-      console.log(exception)
+      alert('Username or password is invalid')
     }
 
   };
@@ -153,14 +173,13 @@ function App() {
 
   return (
     <>
-
       <div className='header_container'>
+        <Notification
+          action={todoAction} />
         <Header
           isLogged={user}
           handleSearch={handleSearch}
         />
-        <Notification
-          action={todoAction} />
         {
           user === null
             ? <Login
@@ -169,14 +188,13 @@ function App() {
               password={password}
               setPassword={setPassword}
               handleLogin={handleLogin} />
-            : <>
-              <div className='logged_info'
-              >
-                <span>Welcome</span>
-                <span>{user.name}</span>
-                <button onClick={handleLogOut}>Logout</button>
-                <span >---</span>
-              </div>
+            :
+            <>
+              <LoggedInfo
+                userName={user.name}
+                handleLogOut={handleLogOut}
+              />
+
             </>
         }
       </div>
@@ -193,6 +211,7 @@ function App() {
                 newTodo={newTodo}
                 setNewtodo={setNewtodo}
                 todoList={todoList}
+                edit={edit}
               />
               <CompletedTask
                 toDos={todos}

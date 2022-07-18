@@ -1,8 +1,14 @@
-import React from 'react'
-import "../style/header.css"
+import React, { useState } from 'react'
+import "../style/login.css"
+import '../style/newUser.css'
+import NewUser from './NewUser'
 
 const Login = ({ handleLogin, username, password, setUsername, setPassword }) => {
 
+  const [isDisplayed, setIsDisplayed] = useState(false)
+  const handleDisplayForm = () => {
+    setIsDisplayed(!isDisplayed)
+  }
 
   return (
     <div className='login_info_container'>
@@ -27,7 +33,17 @@ const Login = ({ handleLogin, username, password, setUsername, setPassword }) =>
 
         <button type='submit'>login</button>
       </form >
-      <a href='/'>new user? click here</a>
+      <div className='new_user_modal'>
+        <button
+          type='button'
+          className='display_newUser_form'
+          onClick={handleDisplayForm}
+        >
+          new user? click here</button>
+        <NewUser
+          isDisplayed={isDisplayed}
+          setIsDisplayed={setIsDisplayed} />
+      </div>
     </div>
   )
 }
