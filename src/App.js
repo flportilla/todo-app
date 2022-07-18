@@ -80,22 +80,13 @@ function App() {
 
     setTodoAction('Editing task')
     await todoService.edit(id, changedTodo)
-}
-
-  //Handle the delete of todos on click
-  const deleteTodo = async (id) => {
-    await todoServices
-      .removeTodo(id)
-
-    setFlag(!flag)
 
     setTimeout(() => {
       setTodoAction('')
       setFlag(!flag)
     }, 800)
-
-
   }
+
   //Handle the delete of todos on click
   const deleteTodo = async (id, target) => {
 
@@ -122,7 +113,7 @@ function App() {
     const newTodoObj = {
       name: newTodo,
       isComplete: false
- 
+    }
     await todoService.addTodo(newTodoObj)
     setTodoAction('Adding to the list')
 
@@ -134,7 +125,6 @@ function App() {
       input.disabled = false
 
     }, 800)
-
 
     setFlag(!flag)
   }
@@ -173,6 +163,7 @@ function App() {
     }
 
   };
+
   const handleLogOut = () => {
     setUser(null)
     window.localStorage.clear()

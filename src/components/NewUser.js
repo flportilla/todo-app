@@ -19,7 +19,8 @@ const NewUser = ({ isDisplayed, setIsDisplayed }) => {
       "password": newPassword
     }
     try {
-      const user = await newUserService.createuser(newUserObj)
+      await newUserService.createuser(newUserObj)
+
       alert('user created')
       setNewUser('')
       setNewPassword('')

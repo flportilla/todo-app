@@ -1,9 +1,6 @@
 import React from 'react'
-import todoService from '../services/todos'
 
 const List = ({ todo, isCompleted, deleteTodo, id, completedClass, edit, isPending }) => {
-
-
 
   return (
     <li>
