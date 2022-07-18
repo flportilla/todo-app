@@ -1,25 +1,27 @@
 import React from 'react'
-import '../style/todoList.css'
+import '../style/pendingTasks.css'
 import List from './List'
 
-const ListItem = ({ toDos, isCompleted, deleteTodo, todoList, createTodo }) => {
+const ListItem = ({ toDos, isCompleted, deleteTodo, todoList, setNewtodo, newTodo, createTodo, edit }) => {
 
   const pendingTodos = todoList.filter(todo => !todo.isComplete)
 
   return (
     <div className="todo_list">
       <form
-        className='form'
+        className='add_todo_form'
         name='form'
         onSubmit={createTodo}
       >
         <input
+          required
+          value={newTodo}
+          onChange={({ target }) => setNewtodo(target.value)}
           type='text'
           id='value'
         />
         <button
-          type='button'
-          onClick={createTodo}
+          type='submit'
         >
           Add
         </button>
@@ -35,11 +37,14 @@ const ListItem = ({ toDos, isCompleted, deleteTodo, todoList, createTodo }) => {
                   pendingTodos.map(todo => {
                     return (
                       <List
+                        isPending={true}
+                        completedClass={'todo_label'}
                         key={todo.id}
                         id={todo.id}
                         todo={todo}
                         isCompleted={isCompleted}
                         deleteTodo={deleteTodo}
+                        edit={edit}
                       />
                     )
                   })
