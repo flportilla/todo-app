@@ -17,3 +17,15 @@ ul>li {
 .empty_completed {
   align-self: center;
 }
+
+.todo_label {
+  display: block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 100%;
+}
+
+.isCompleted {
+  text-decoration: line-through;
+}
