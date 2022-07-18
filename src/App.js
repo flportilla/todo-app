@@ -21,8 +21,6 @@ function App() {
     const selectedTodo = todos.find(todo => todo.id === id)
     const changedTodo = { ...selectedTodo, isComplete: !selectedTodo.isComplete }
 
-    await todoServices.markAsComplete(id, changedTodo)
-    setFlag(!flag)
   }
 
   //Handle the delete of todos on click
@@ -34,6 +32,7 @@ function App() {
 
   //Handle the creation of new todos and adds them to the list
   const createTodo = async (e) => {
+
     e.preventDefault()
     const form = document.forms['form'];
     const newTodoValue = form.firstChild.value
@@ -44,6 +43,7 @@ function App() {
     }
 
     await todoServices.addTodo(newTodoObj)
+
     setFlag(!flag)
   }
   //This two functions use the memo hook to filter the results on a search
