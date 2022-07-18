@@ -1,5 +1,6 @@
 const todoRouter = require('express').Router()
 const Todo = require('../models/todos')
+
 const jwt = require('jsonwebtoken')
 
 const middleware = require('../middleware/middleware')
@@ -62,7 +63,6 @@ todoRouter.delete('/:id', tokenExtractor, userExtractor, async (request, respons
   user.todos = user.todos.filter(todo => todo.toString() !== selectedTodo?.id)
   await user.save()
   return response.status(204).end()
-
 })
 
 module.exports = todoRouter

@@ -28,5 +28,4 @@ const Header = ({ handleSearch, isLogged }) => {
     </div>
   )
 }
-
 export default Header
