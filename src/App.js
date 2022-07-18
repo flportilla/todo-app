@@ -20,8 +20,13 @@ function App() {
 
     const selectedTodo = todos.find(todo => todo.id === id)
     const changedTodo = { ...selectedTodo, isComplete: !selectedTodo.isComplete }
+    await todoServices.markAsComplete(id, changedTodo)
+
+    setFlag(!flag)
 
   }
+
+
 
   //Handle the delete of todos on click
   const deleteTodo = async (id) => {
