@@ -68,6 +68,7 @@ function App() {
       setFlag(!flag)
     }, 800)
 
+
   }
   //Handle editing a ToDo
   const edit = async (id, e) => {
@@ -79,6 +80,12 @@ function App() {
 
     setTodoAction('Editing task')
     await todoService.edit(id, changedTodo)
+}
+
+  //Handle the delete of todos on click
+  const deleteTodo = async (id) => {
+    await todoServices
+      .removeTodo(id)
 
     setFlag(!flag)
 
@@ -107,6 +114,7 @@ function App() {
 
   //Handle the creation of new todos and adds them to the list
   const createTodo = async (e) => {
+
     e.preventDefault()
     const input = e.target.firstChild
     input.disabled = true
@@ -114,8 +122,7 @@ function App() {
     const newTodoObj = {
       name: newTodo,
       isComplete: false
-    }
-
+ 
     await todoService.addTodo(newTodoObj)
     setTodoAction('Adding to the list')
 
@@ -127,6 +134,7 @@ function App() {
       input.disabled = false
 
     }, 800)
+
 
     setFlag(!flag)
   }
